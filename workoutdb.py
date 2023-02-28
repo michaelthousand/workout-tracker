@@ -41,21 +41,6 @@ class Workoutdb:
 
     def add(self, date, month, year, time, duration, wo_type):
         self.db.append(Workout(date,month,year,time,duration, wo_type))
-
-    
-    def search(self, date='', time='', duration='', wo_type=''):
-        results = []
-        if date:
-            found = Sessiondb.search(date)
-            results.extend(found)
-        if wo_type:
-            srch = re.compile(laid,re.I)
-            found = []
-            for item in self.db:
-                if srch.search(item.wo_type):
-                    found.append(item)
-            results.extend(found)
-        return results
             
 
     def store(self,file=None):
@@ -70,19 +55,5 @@ class Workoutdb:
     def __del__(self):
         if self.db:
             self.store()
-            
-    # Not working
-    def __getitem__(self,key):
-        try:
-            index = int(key)
-            return self.db[index]
-        except ValueError:
-            found = 0
-            for item in self.db:
-                if item.date == key:
-                    found = 1
-                    return item
-            if not found:
-                raise KeyError(key)
 
         
